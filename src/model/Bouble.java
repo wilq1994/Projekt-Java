@@ -7,26 +7,95 @@ public class Bouble {
 	final Integer CLICK = 2;
 	final Integer SUCCESS = 3;
 	final Integer FAILURE = 4;
+	final Integer LEFTEDGE = 20;
+	final Integer RIGHTEDGE = 500;
+	final Integer TOPEDGE = 20;
+	final Integer BOTTOMEDGE = 920;
+	final Integer BOUBLEDIA = 50;
+	
+	Integer reactionTime;
 	Integer locationX;
 	Integer locationY;
 	Integer vectorX;
 	Integer vectorY;
 	Integer moment;
-	Integer state;//4 stany, 1-czekaj, 2-kliknij 3-dobrze, 4-Ÿle 
+	Integer currentMoment;
+	Integer state; 
 	String symbol;
+	String clickedSymbol;
 	
-	public Bouble(String symbol, Integer moment){
+	public Bouble(Integer moment, String symbol){
+		this.reactionTime = 300;
 		this.symbol=symbol;
 		this.moment=moment;
-		this.locationX=randInt(20,450);
-		this.locationY=randInt(20,890);
-		this.vectorX=0;
-		this.vectorY=0;
+		this.locationX=randInt(LEFTEDGE,RIGHTEDGE-BOUBLEDIA);
+		this.locationY=randInt(TOPEDGE,BOTTOMEDGE-BOUBLEDIA);
+		this.vectorX=randInt(0,5);
+		this.vectorY=randInt(0,5);
 		this.state = WAIT;
 	}
 	
-	void move(){
-		
+	void refresh(){
+		this.handleState();
+		this.handlePosition();
+	}
+	
+	void handleState(){
+		if(timeIsUp(currentMoment)){
+			state=FAILURE;
+		}else if(timeToWait(currentMoment)){
+			state=WAIT;
+		}else if((timeToClick(currentMoment) && symbolWasClicked(clickedSymbol))){
+			state=SUCCESS;
+		}else if(timeToClick(currentMoment)){
+			state=CLICK;
+		} 
+	}
+	
+	private Boolean symbolWasClicked(String clickedSymbol){
+		if(clickedSymbol.equals(symbol)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	private Boolean timeToClick(Integer currentMoment){
+		if(moment-reactionTime<=currentMoment && currentMoment<=moment+reactionTime){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	private Boolean timeToWait(Integer currentMoment){
+		if(currentMoment<moment-reactionTime){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	private Boolean timeIsUp(Integer currentMoment){
+		if(currentMoment>moment+reactionTime){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	
+	void handlePosition(){
+		if(LEFTEDGE<=locationX+vectorX && locationX+vectorX<=RIGHTEDGE){
+			locationX+=vectorX;
+		}else{
+			vectorX= -vectorX;
+		}
+		if(TOPEDGE<=locationY+vectorY && locationY+vectorY<=BOTTOMEDGE){
+			locationY+=vectorY;
+		}else{
+			vectorY= -vectorY;
+		}
 	}
 	
 	private Integer randInt(Integer min, Integer max){
