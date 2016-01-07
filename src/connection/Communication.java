@@ -5,12 +5,20 @@ import java.io.BufferedWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public abstract class Communication
+import model.Model;
+
+public abstract class Communication implements Runnable
 {
-	private static Socket socket;
-	private static BufferedReader in;
-	private static BufferedWriter out;
+	protected Socket socket;
+	protected BufferedReader reader;
+	protected BufferedWriter writer;
+	protected Model model;
+	protected boolean active;
 	void loop()
+	{
+		
+	}
+	public void run()
 	{
 		
 	}
