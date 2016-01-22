@@ -3,22 +3,22 @@ package model;
 import java.util.Random;
 
 public class Bouble {
-	final Integer WAIT = 1;
-	final Integer CLICK = 2;
-	final Integer SUCCESS = 3;
-	final Integer FAILURE = 4;
+	final String WAIT = "WAIT";
+	final String CLICK = "CLICK";
+	final String SUCCESS = "SUCCESS";
+	final String FAILURE = "FAILURE";
 	final Integer LEFTEDGE = 20;
 	final Integer RIGHTEDGE = 500;
 	final Integer TOPEDGE = 20;
 	final Integer BOTTOMEDGE = 920;
 	final Integer BOUBLEDIA = 50;
 	Integer reactionTime;
-	Integer locationX;
-	Integer locationY;
 	Integer vectorX;
 	Integer vectorY;
 	Integer moment;
-	Integer state; 
+	Integer locationX;
+	Integer locationY;
+	String state; 
 	String symbol;
 	
 	public Bouble(Integer moment, String symbol){
@@ -30,6 +30,22 @@ public class Bouble {
 		this.vectorX=randInt(0,5);
 		this.vectorY=randInt(0,5);
 		this.state = WAIT;
+	}
+	
+	public Integer getLocationX(){
+		return locationX;
+	}
+	
+	public Integer getLocationY(){
+		return locationY;
+	}
+	
+	public String getState(){
+		return state;
+	}
+	
+	public String getSymbol(){
+		return symbol;
 	}
 	
 	void refresh(Integer currentMoment){
