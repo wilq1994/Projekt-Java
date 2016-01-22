@@ -11,7 +11,7 @@ public class Model {
 	Music music;
 	
 	public Model(){
-	
+		
 	}
 	
 	public void setOwnPetHappiness(Integer happiness){
@@ -36,8 +36,10 @@ public class Model {
 		moveBoubles(currentMoment);
 	}
 	
-	public void handleClick(Integer currentMoment, String symbol){
-		
+	public void handleClick(String symbol){
+		for(Bouble b: boubles){
+			b.handleClick(symbol);
+		}
 	}
 	
 	public void moveBoubles(Integer currentMoment){
