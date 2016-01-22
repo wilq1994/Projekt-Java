@@ -1,4 +1,7 @@
+package view;
+
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -36,7 +39,7 @@ public class View {
 	
 	private	JLabel enemyLabel;
 	
-	View(){
+	public View(){
 		SwingUtilities.invokeLater(new Runnable(){
 
 			@Override
