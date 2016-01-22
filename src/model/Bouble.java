@@ -7,10 +7,10 @@ public class Bouble {
 	final String CLICK = "CLICK";
 	final String SUCCESS = "SUCCESS";
 	final String FAILURE = "FAILURE";
-	final Integer LEFTEDGE = 20;
-	final Integer RIGHTEDGE = 500;
-	final Integer TOPEDGE = 20;
-	final Integer BOTTOMEDGE = 920;
+	final Integer LEFTEDGE = 0;
+	final Integer RIGHTEDGE = 520;
+	final Integer TOPEDGE = 0;
+	final Integer BOTTOMEDGE = 940;
 	final Integer BOUBLEDIA = 100;
 	Integer reactionTime;
 	Integer vectorX;

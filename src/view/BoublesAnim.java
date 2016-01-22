@@ -1,5 +1,8 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -36,10 +39,15 @@ public class BoublesAnim extends JPanel {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g.create();
+
+		g2d.setColor(Color.BLACK);
+		g2d.setFont(new Font("Arial", Font.PLAIN, 50));
+		FontMetrics fm = g2d.getFontMetrics();
 		
 		if(boubles != null){
 			for(int i=0; i<this.boubles.size(); i++){
 				Bouble b = boubles.get(i);
+				g2d.drawString(b.getSymbol(), b.getLocationX()+40, b.getLocationY()+fm.getHeight());
 				g2d.drawImage(bouble, b.getLocationX(), b.getLocationY(), this);
 			}
 		}
