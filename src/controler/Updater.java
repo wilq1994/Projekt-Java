@@ -25,7 +25,7 @@ public class Updater implements Runnable
 		while (keepGoing)
 		{
 			currentTime = (int) (System.currentTimeMillis() - startTime);
-			if (currentTime > updateTime + 100)
+			if (currentTime > updateTime + 20)
 			{
 				updateTime = currentTime;
 				model.handleRoutines(currentTime);
