@@ -1,19 +1,17 @@
 package view;
 
 import java.awt.Color;
-
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,7 +21,10 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
+
+import model.Bouble;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 public class View {
 	
@@ -42,6 +43,10 @@ public class View {
 	private PetAnimation pet;
 	
 	private GameBgAnimation bg;
+	
+	private AudioPlayer audioPly;
+	
+	private AudioStream audioStr;
 	
 	public View(){
 		SwingUtilities.invokeLater(new Runnable(){
@@ -64,6 +69,15 @@ public class View {
 				initMainView();
 				initGameView();
 				screen.add(mainView);
+
+				
+				audioPly = AudioPlayer.player;
+				try {
+					InputStream test = new FileInputStream("res/music.wav");
+					audioStr = new AudioStream(test);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			
 		});	
@@ -173,14 +187,8 @@ public class View {
 	public void renderGame(){
 		bg.play();
 		pet.play();
-	}
-	
-	private void renderHUD(){
-		
-	}
-	
-	private void playMusic(){
-		
+
+		audioPly.start(audioStr);
 	}
 	
 	/**
@@ -195,6 +203,7 @@ public class View {
 			renderGame();
 			break;
 		default:
+			audioPly.stop(audioStr);
 			screen.add(mainView);
 			break;
 		}
@@ -202,8 +211,11 @@ public class View {
 		screen.revalidate();
 	}
 	
-	public void refresh(Integer happiness){
-		enemyLabel.setText("Enemy happiness: " + happiness);
+	public void refresh(ArrayList <Bouble> boubles, Integer petHappiness, Integer enemyHappiness){
+		System.out.println("Happiness: " + petHappiness);
+		System.out.println("Enemy happiness: " + enemyHappiness);
+		System.out.println("Boubles: " + boubles);
+		enemyLabel.setText("Enemy happiness: " + enemyHappiness);
 	}
 	
 }
