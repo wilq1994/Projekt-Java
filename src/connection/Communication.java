@@ -14,13 +14,10 @@ public abstract class Communication implements Runnable
 	protected BufferedWriter writer;
 	protected Model model;
 	protected boolean active;
-	void loop()
-	{
-		
-	}
+
 	public void run()
 	{
-		
+
 	}
 
 }
