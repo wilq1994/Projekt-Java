@@ -1,29 +1,42 @@
 package controler;
 
 import model.Model;
-//import view.View;
+import view.View;
 
 public class Updater implements Runnable
 {
 	private boolean keepGoing;
 	private Model model;
-	//private View view;
-	private long updateTime;
-	Updater(Model model/*, View view*/)
+	private View view;
+	private long startTime;
+	private int updateTime, currentTime;
+	
+
+	Updater(Model model, View view)
 	{
-		keepGoing=true;
+		this.model = model;
+		this.view = view;
+		keepGoing = true;
+		startTime = System.currentTimeMillis();
 	}
+
 	@Override
-	public void run() {
-		while(keepGoing)
+	public void run()
+	{
+		while (keepGoing)
 		{
-			if(System.currentTimeMillis()>updateTime+100)
+			currentTime = (int) (startTime - System.currentTimeMillis());
+			if (currentTime > updateTime + 100)
 			{
-				updateTime=System.currentTimeMillis();
-				//Model.moveBoubles();
-				//Model.decreaseHappiness();
-				//View.redraw(model.getOwnHappiness(), model.getEnemyHappiness());
+				updateTime = currentTime;
+				model.handleRoutines(currentTime);
+				view.refresh(model.getEnemyPetHappiness());
 			}
 		}
+	}
+
+	int getCurrentTime()
+	{
+		return currentTime;
 	}
 }

@@ -6,19 +6,41 @@ import connection.Client;
 import connection.Communication;
 import connection.Server;
 import model.Model;
-//import view.View;
+import view.View;
 
 public class Controler
 {
 	static private Communication communication;
 	static private KeyListener listener;
 	static private Model model;
-	// private View view;
+	static private View view;
 	static private String signal;
+	static private Updater updater;
 
 	public Controler()
 	{
 
+	}
+	
+	static public void handleClickedButton (String  clickedButton)
+	{
+		if(clickedButton.toUpperCase() =="NOWA GRA" || clickedButton.toUpperCase() =="NEW GAME")
+		{
+			startGame();
+		}
+		else if(clickedButton.toUpperCase() =="USTAWIENIA" || clickedButton.toUpperCase() =="SETTINGS")
+		{
+			
+		}
+		else if(clickedButton.toUpperCase() =="WYJSCIE" || clickedButton.toUpperCase() =="EXIT")
+		{
+			
+		}
+	}
+	
+	static public void handleClickedBouble (String  clickedButton)
+	{
+		model.handleClick(clickedButton);
 	}
 
 	static private void mainLoop()
@@ -26,26 +48,15 @@ public class Controler
 
 	}
 
-	static private void startListen()
+	static private void startGame()
 	{
-
+		model.newGame(1, "fajny tytul", model.generateTrack(), false);
+		view.changeView("game");
+		updater=new Updater(model, view);
+		Thread th = new Thread(updater);
+		th.start();
 	}
 
-	static private void stopListen()
-	{
-
-	}
-
-	static public void handleClickedButton (String  clickedButton)
-	{
-		
-	}
-	
-	static public void handleClickedBouble (String  clickedButton)
-	{
-		
-	}
-	
 	
 	
 	/**
