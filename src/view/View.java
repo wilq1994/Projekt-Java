@@ -22,6 +22,7 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import controler.Controler;
 import model.Bouble;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
@@ -121,7 +122,8 @@ public class View {
 		btnPlay.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				changeView("game");
+				//changeView("game");
+				Controler.handleClickedButton("NOWA GRA");
 			}
 		});
 	}
@@ -176,7 +178,8 @@ public class View {
 		btnBack.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				changeView("main");
+				//changeView("main");
+				Controler.handleClickedButton("WYJSCIE");
 			}
 		});
 	}

@@ -24,12 +24,13 @@ public class Updater implements Runnable
 	{
 		while (keepGoing)
 		{
-			currentTime = (int) (startTime - System.currentTimeMillis());
+			currentTime = (int) (System.currentTimeMillis() - startTime);
 			if (currentTime > updateTime + 100)
 			{
+				System.out.println("currentTime");
 				updateTime = currentTime;
 				model.handleRoutines(currentTime);
-				view.refresh(null, model.getOwnPetHappiness(), model.getEnemyPetHappiness());
+				view.refresh(model.getBoubleList(), model.getOwnPetHappiness(), model.getEnemyPetHappiness());
 			}
 		}
 	}
