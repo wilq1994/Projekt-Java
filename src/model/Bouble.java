@@ -12,17 +12,14 @@ public class Bouble {
 	final Integer TOPEDGE = 20;
 	final Integer BOTTOMEDGE = 920;
 	final Integer BOUBLEDIA = 50;
-	
 	Integer reactionTime;
 	Integer locationX;
 	Integer locationY;
 	Integer vectorX;
 	Integer vectorY;
 	Integer moment;
-	Integer currentMoment;
 	Integer state; 
 	String symbol;
-	String clickedSymbol;
 	
 	public Bouble(Integer moment, String symbol){
 		this.reactionTime = 300;
@@ -35,22 +32,28 @@ public class Bouble {
 		this.state = WAIT;
 	}
 	
-	void refresh(){
-		this.handleState();
+	void refresh(Integer currentMoment){
+		this.handleState(currentMoment);
 		this.handlePosition();
 	}
 	
-	void handleState(){
-		if(timeIsUp(currentMoment)){
-			state=FAILURE;
-		}else if(timeToWait(currentMoment)){
-			state=WAIT;
-		}else if((timeToClick(currentMoment) && symbolWasClicked(clickedSymbol))){
-			state=SUCCESS;
-		}else if(timeToClick(currentMoment)){
+	void handleState(Integer currentMoment){
+		if(state==WAIT && timeToClick(currentMoment)){
 			state=CLICK;
-		} 
+		}else if(state==CLICK && timeIsUp(currentMoment)){
+			state=FAILURE;
+		}
 	}
+	
+	void handleClick(String clickedSymbol){
+		Boolean swc = symbolWasClicked(clickedSymbol);
+		if(state==WAIT && swc){
+			state=FAILURE;
+		}else if(state==CLICK && swc){
+			state=SUCCESS;
+		}
+	}
+	
 	
 	private Boolean symbolWasClicked(String clickedSymbol){
 		if(clickedSymbol.equals(symbol)){
@@ -62,14 +65,6 @@ public class Bouble {
 	
 	private Boolean timeToClick(Integer currentMoment){
 		if(moment-reactionTime<=currentMoment && currentMoment<=moment+reactionTime){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	private Boolean timeToWait(Integer currentMoment){
-		if(currentMoment<moment-reactionTime){
 			return true;
 		}else{
 			return false;

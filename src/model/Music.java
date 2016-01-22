@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class Music {
 	String name;
@@ -12,8 +13,26 @@ public class Music {
 		this.track=track;
 	}
 	
-	TupleMomentSymbol getNewBoubleData(Integer moment){
-		return new TupleMomentSymbol(0,"");
+	TupleMomentSymbol popNewBoubleData(Integer currentMoment){
+		TupleMomentSymbol boubleData = null;
+		for(Entry<Integer, String> entry : track.entrySet()){
+			Integer entryMoment = entry.getKey();
+			String symbol = entry.getValue();
+			if(isAbout(currentMoment, entryMoment)){
+				boubleData = new TupleMomentSymbol(entryMoment, symbol);
+				break;
+			}
+		}
+		track.remove(boubleData.getMoment());
+		return boubleData;
+	}
+	
+	public Boolean isAbout(Integer a, Integer b){
+		if(Math.abs(a-b)<1000){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }
