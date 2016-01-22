@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Model {
-	ArrayList <Bouble> boubles;
+	ArrayList<Bouble> boubles;
 	Integer level;
 	Pet ownPet;
 	Pet enemyPet;
@@ -12,6 +12,10 @@ public class Model {
 	
 	public Model(){
 		
+	}
+	
+	public ArrayList<Bouble> getBoubleList(){
+		return new ArrayList<Bouble>(this.boubles);
 	}
 	
 	public void setOwnPetHappiness(Integer happiness){
