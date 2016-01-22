@@ -49,6 +49,8 @@ public class View {
 	
 	private AudioStream audioStr;
 	
+	private JProgressBar progressBar;
+	
 	public View(){
 		SwingUtilities.invokeLater(new Runnable(){
 
@@ -133,15 +135,7 @@ public class View {
 		gameViewPane.setBounds(0, 0, 540, 960);
 		gameView.add(gameViewPane);
 		
-		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(410, 20, 100, 50);
-		btnBack.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnBack.setBackground(Color.YELLOW);
-		btnBack.setForeground(Color.BLUE);
-		btnBack.setFocusPainted(false);
-		btnBack.setContentAreaFilled(false);
-		
-		JProgressBar progressBar = new JProgressBar();
+		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
 		progressBar.setString("");
 		progressBar.setBounds(150,30,230,30);
@@ -170,18 +164,9 @@ public class View {
 		gameViewPane.add(bg, new Integer(1));
 		gameViewPane.add(pet, new Integer(2));
 
-		gameViewPane.add(btnBack, new Integer(3));
 		gameViewPane.add(progressBar, new Integer(3));
 		gameViewPane.add(happinessLabel, new Integer(3));
 		gameViewPane.add(enemyLabel, new Integer(3));
-		
-		btnBack.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				//changeView("main");
-				Controler.handleClickedButton("WYJSCIE");
-			}
-		});
 	}
 	
 	/**
@@ -218,6 +203,8 @@ public class View {
 		System.out.println("Happiness: " + petHappiness);
 		System.out.println("Enemy happiness: " + enemyHappiness);
 		System.out.println("Boubles: " + boubles);
+		progressBar.setValue(petHappiness);
+		happinessLabel.setText("Happiness: "+petHappiness);
 		enemyLabel.setText("Enemy happiness: " + enemyHappiness);
 	}
 	
