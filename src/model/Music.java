@@ -23,7 +23,9 @@ public class Music {
 				break;
 			}
 		}
-		track.remove(boubleData.getMoment());
+		if(boubleData!=null){
+			track.remove(boubleData.getMoment());
+		}
 		return boubleData;
 	}
 	
