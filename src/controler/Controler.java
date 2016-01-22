@@ -10,43 +10,57 @@ import model.Model;
 
 public class Controler
 {
-	private Communication communication;
-	private KeyListener listener;
-	private Model model;
-	//private View view;
-	private String signal;
-	
+	static private Communication communication;
+	static private KeyListener listener;
+	static private Model model;
+	// private View view;
+	static private String signal;
+
 	public Controler()
 	{
-		
+
 	}
-	
-	private void mainLoop()
+
+	static private void mainLoop()
+	{
+
+	}
+
+	static private void startListen()
+	{
+
+	}
+
+	static private void stopListen()
+	{
+
+	}
+
+	static public void handleClickedButton (String  clickedButton)
 	{
 		
 	}
 	
-	private void startListen()
+	static public void handleClickedBouble (String  clickedButton)
 	{
 		
 	}
 	
-	private void stopListen()
-	{
-		
-	}
-	/**funkcja main stworzona do testowania dzia³ania po³¹czenia sieciowego
+	
+	
+	/**
+	 * funkcja main stworzona do testowania dzia³ania po³¹czenia sieciowego
 	 * 
 	 */
-	public void main()
+	static public void main()
 	{
-		communication=new Server(1234, model);
-		Client client=new Client("127.0.0.1", 1234, model);
-		Thread sThread=new Thread(communication);
-		Thread cThread=new Thread(client);
+		communication = new Server(1234, model);
+		Client client = new Client("127.0.0.1", 1234, model);
+		Thread sThread = new Thread(communication);
+		Thread cThread = new Thread(client);
 		sThread.run();
 		cThread.run();
-		
+
 	}
-	
+
 }
