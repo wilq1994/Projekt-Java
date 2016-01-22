@@ -27,8 +27,8 @@ public class Bouble {
 		this.moment=moment;
 		this.locationX=randInt(LEFTEDGE,RIGHTEDGE-BOUBLEDIA);
 		this.locationY=randInt(TOPEDGE,BOTTOMEDGE-BOUBLEDIA);
-		this.vectorX=randInt(0,5);
-		this.vectorY=randInt(0,5);
+		this.vectorX=randInt(-10,10);
+		this.vectorY=randInt(-10,10);
 		this.state = WAIT;
 	}
 	
@@ -107,12 +107,12 @@ public class Bouble {
 	
 	
 	void handlePosition(){
-		if(LEFTEDGE<=locationX+vectorX && locationX+vectorX<=RIGHTEDGE){
+		if(LEFTEDGE<=locationX+vectorX && locationX+vectorX<=RIGHTEDGE-BOUBLEDIA){
 			locationX+=vectorX;
 		}else{
 			vectorX= -vectorX;
 		}
-		if(TOPEDGE<=locationY+vectorY && locationY+vectorY<=BOTTOMEDGE){
+		if(TOPEDGE<=locationY+vectorY && locationY+vectorY<=BOTTOMEDGE-BOUBLEDIA){
 			locationY+=vectorY;
 		}else{
 			vectorY= -vectorY;
