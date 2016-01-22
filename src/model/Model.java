@@ -31,13 +31,30 @@ public class Model {
 	}
 	
 	public void handleRoutines(Integer currentMoment){
+		scrapOldBoubles(currentMoment);
 		checkForNewBoubles(currentMoment);
 		moveBoubles(currentMoment);
+	}
+	
+	public void handleClick(Integer currentMoment, String symbol){
+		
 	}
 	
 	public void moveBoubles(Integer currentMoment){
 		for(Bouble b: boubles){
 			b.refresh(currentMoment);
+		}
+	}
+	
+	public void scrapOldBoubles(Integer currentMoment){
+		ArrayList<Bouble> toScrap = new ArrayList<Bouble>();
+		for(Bouble b: boubles){
+			if(b.isOld(currentMoment)){
+				toScrap.add(b);
+			}
+		}
+		for(Bouble b: toScrap){
+			boubles.remove(b);
 		}
 	}
 	
