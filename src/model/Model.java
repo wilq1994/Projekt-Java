@@ -23,11 +23,17 @@ public class Model {
 	}
 	
 	public void setEnemyPetHappiness(Integer happiness){
-		enemyPet.setHappiness(happiness);
+		if(enemyPet!=null){
+			enemyPet.setHappiness(happiness);
+		}
 	}
 	
 	public Integer getEnemyPetHappiness(){
-		return enemyPet.getHappiness();
+		if(enemyPet!=null){
+			return enemyPet.getHappiness();
+		}else{
+			return null;
+		}
 	}
 	
 	public void handleRoutines(Integer currentMoment){
