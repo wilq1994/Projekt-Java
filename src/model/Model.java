@@ -32,6 +32,10 @@ public class Model {
 		}
 	}
 	
+	public void decreaseOwnPetHappiness(){
+		ownPet.decreaseHappiness();
+	}
+	
 	public Integer getEnemyPetHappiness(){
 		if(enemyPet!=null){
 			return enemyPet.getHappiness();
@@ -41,6 +45,7 @@ public class Model {
 	}
 	
 	public void handleRoutines(Integer currentMoment){
+		decreaseOwnPetHappiness();
 		scrapOldBoubles(currentMoment);
 		checkForNewBoubles(currentMoment);
 		moveBoubles(currentMoment);
@@ -72,7 +77,9 @@ public class Model {
 	
 	public void checkForNewBoubles(Integer currentMoment){
 		TupleMomentSymbol momentSymbol = music.popNewBoubleData(currentMoment);
-		addBouble(momentSymbol.getMoment(), momentSymbol.getSymbol());
+		if(momentSymbol!=null){
+			addBouble(momentSymbol.getMoment(), momentSymbol.getSymbol());
+		}
 	}
 	
 	public void addBouble(Integer moment, String symbol){

@@ -12,7 +12,9 @@ public class Pet {
 	}
 	
 	void decreaseHappiness(){
-		this.happiness-=1;
+		if(this.happiness>0){
+			this.happiness-=1;
+		}
 	}
 	
 	void setHappiness(Integer happiness){
