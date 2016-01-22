@@ -41,9 +41,11 @@ public class View {
 	
 	private	JLabel enemyLabel;
 	
-	private PetAnimation pet;
+	private PetAnimation petAnim;
 	
-	private GameBgAnimation bg;
+	private GameBgAnimation bgAnim;
+	
+	private BoublesAnim boublesAnim;
 	
 	private AudioPlayer audioPly;
 	
@@ -155,26 +157,30 @@ public class View {
 		enemyLabel.setBounds(350, 880, 160, 50);
 		
 
-		bg = new GameBgAnimation();
-		bg.setBounds(0, 0, 540, 960);
+		bgAnim = new GameBgAnimation();
+		bgAnim.setBounds(0, 0, 540, 960);
 		
-		pet = new PetAnimation();
-		pet.setBounds(140, 250, 270, 529);
+		petAnim = new PetAnimation();
+		petAnim.setBounds(140, 250, 270, 529);
 		
-		gameViewPane.add(bg, new Integer(1));
-		gameViewPane.add(pet, new Integer(2));
+		boublesAnim = new BoublesAnim();
+		boublesAnim.setBounds(0, 0, 540, 960);
+		
+		gameViewPane.add(bgAnim, new Integer(1));
+		gameViewPane.add(petAnim, new Integer(2));
+		gameViewPane.add(boublesAnim, new Integer(3));
 
-		gameViewPane.add(progressBar, new Integer(3));
-		gameViewPane.add(happinessLabel, new Integer(3));
-		gameViewPane.add(enemyLabel, new Integer(3));
+		gameViewPane.add(progressBar, new Integer(4));
+		gameViewPane.add(happinessLabel, new Integer(4));
+		gameViewPane.add(enemyLabel, new Integer(4));
 	}
 	
 	/**
 	 * Renderuje grê
 	 */
 	public void renderGame(){
-		bg.play();
-		pet.play();
+		bgAnim.play();
+		petAnim.play();
 
 		audioPly.start(audioStr);
 	}
@@ -200,9 +206,7 @@ public class View {
 	}
 	
 	public void refresh(ArrayList <Bouble> boubles, Integer petHappiness, Integer enemyHappiness){
-		System.out.println("Happiness: " + petHappiness);
-		System.out.println("Enemy happiness: " + enemyHappiness);
-		System.out.println("Boubles: " + boubles);
+		boublesAnim.refreshBoubles(boubles);
 		progressBar.setValue(petHappiness);
 		happinessLabel.setText("Happiness: "+petHappiness);
 		enemyLabel.setText("Enemy happiness: " + enemyHappiness);
