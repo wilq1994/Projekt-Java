@@ -16,29 +16,37 @@ public class Controler
 	static private View view;
 	static private String signal;
 	static private Updater updater;
+	static private String status;
 
 	public Controler()
 	{
 
 	}
 	
-	static public void handleClickedButton (String  clickedButton)
+	static public void Init(Model m,View v)
 	{
-		if(clickedButton.toUpperCase() =="NOWA GRA" || clickedButton.toUpperCase() =="NEW GAME")
+		status = "menu";
+		view = v;
+		view.changeView(status);
+		model = m;
+		model.quitGame();
+	}
+
+	static public void handleClickedButton(String clickedButton)
+	{
+		if (clickedButton.toUpperCase() == "NOWA GRA" || clickedButton.toUpperCase() == "NEW GAME")
 		{
 			startGame();
-		}
-		else if(clickedButton.toUpperCase() =="USTAWIENIA" || clickedButton.toUpperCase() =="SETTINGS")
+		} else if (clickedButton.toUpperCase() == "USTAWIENIA" || clickedButton.toUpperCase() == "SETTINGS")
 		{
-			
-		}
-		else if(clickedButton.toUpperCase() =="WYJSCIE" || clickedButton.toUpperCase() =="EXIT")
+
+		} else if (clickedButton.toUpperCase() == "WYJSCIE" || clickedButton.toUpperCase() == "EXIT")
 		{
-			
+
 		}
 	}
-	
-	static public void handleClickedBouble (String  clickedButton)
+
+	static public void handleClickedBouble(String clickedButton)
 	{
 		model.handleClick(clickedButton);
 	}
@@ -50,15 +58,14 @@ public class Controler
 
 	static private void startGame()
 	{
+		status = "game";
 		model.newGame(1, "fajny tytul", model.generateTrack(), false);
-		view.changeView("game");
-		updater=new Updater(model, view);
+		view.changeView(status);
+		updater = new Updater(model, view);
 		Thread th = new Thread(updater);
 		th.start();
 	}
 
-	
-	
 	/**
 	 * funkcja main stworzona do testowania dzia³ania po³¹czenia sieciowego
 	 * 
