@@ -39,6 +39,10 @@ public class View {
 	
 	private	JLabel enemyLabel;
 	
+	private PetAnimation pet;
+	
+	private GameBgAnimation bg;
+	
 	public View(){
 		SwingUtilities.invokeLater(new Runnable(){
 
@@ -141,10 +145,10 @@ public class View {
 		enemyLabel.setBounds(350, 880, 160, 50);
 		
 
-		GameBgAnimation bg = new GameBgAnimation();
+		bg = new GameBgAnimation();
 		bg.setBounds(0, 0, 540, 960);
 		
-		PetAnimation pet = new PetAnimation();
+		pet = new PetAnimation();
 		pet.setBounds(140, 250, 270, 529);
 		
 		gameViewPane.add(bg, new Integer(1));
@@ -163,7 +167,12 @@ public class View {
 		});
 	}
 	
-	private void renderFrame(){
+	/**
+	 * Renderuje grê
+	 */
+	public void renderGame(){
+		bg.play();
+		pet.play();
 	}
 	
 	private void renderHUD(){
@@ -183,7 +192,7 @@ public class View {
 		switch (view) {
 		case "game":
 			screen.add(gameView);
-			renderFrame();
+			renderGame();
 			break;
 		default:
 			screen.add(mainView);

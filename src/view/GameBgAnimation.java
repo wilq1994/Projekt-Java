@@ -29,8 +29,16 @@ public class GameBgAnimation extends JPanel implements ActionListener {
 		
 		repaint();
 		t = new Timer(40, this);
+	}
+	
+	public void play(){
+		x = 0;
 		t.start();
-		
+	}
+	
+	public void stop(){
+		x = 0;
+		t.stop();
 	}
 	
 	public void paintComponent(Graphics g){
