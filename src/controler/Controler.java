@@ -1,6 +1,7 @@
 package controler;
 
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 
 import connection.Client;
 import connection.Communication;
@@ -27,7 +28,6 @@ public class Controler
 	{
 		status = "menu";
 		view = v;
-		view.changeView(status);
 		model = m;
 		model.quitGame();
 	}
@@ -37,10 +37,12 @@ public class Controler
 		if (clickedButton.toUpperCase() == "NOWA GRA" || clickedButton.toUpperCase() == "NEW GAME")
 		{
 			startGame();
-		} else if (clickedButton.toUpperCase() == "USTAWIENIA" || clickedButton.toUpperCase() == "SETTINGS")
+		}
+		else if (clickedButton.toUpperCase() == "USTAWIENIA" || clickedButton.toUpperCase() == "SETTINGS")
 		{
 
-		} else if (clickedButton.toUpperCase() == "WYJSCIE" || clickedButton.toUpperCase() == "EXIT")
+		}
+		else if (clickedButton.toUpperCase() == "WYJSCIE" || clickedButton.toUpperCase() == "EXIT")
 		{
 
 		}
@@ -51,15 +53,11 @@ public class Controler
 		model.handleClick(clickedButton);
 	}
 
-	static private void mainLoop()
-	{
-
-	}
-
 	static private void startGame()
 	{
 		status = "game";
-		model.newGame(1, "fajny tytul", model.generateTrack(), false);
+		HashMap<Integer, String> track = model.generateTrack();
+		model.newGame(1, "fajny tytul", track, false);
 		view.changeView(status);
 		updater = new Updater(model, view);
 		Thread th = new Thread(updater);
