@@ -45,13 +45,15 @@ public class Bouble {
 		}
 	}
 	
-	void handleClick(String clickedSymbol){
+	Boolean handleClick(String clickedSymbol){
 		Boolean swc = symbolWasClicked(clickedSymbol);
 		if(swc && state==WAIT){
 			state=FAILURE;
 		}else if(swc && state==CLICK){
 			state=SUCCESS;
+			return true;
 		}
+		return false;
 	}
 	
 	Boolean isOld(Integer currentMoment){

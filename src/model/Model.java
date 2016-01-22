@@ -36,6 +36,10 @@ public class Model {
 		ownPet.decreaseHappiness();
 	}
 	
+	public void increaseOwnPetHappiness(){
+		ownPet.increaseHappiness();
+	}
+	
 	public Integer getEnemyPetHappiness(){
 		if(enemyPet!=null){
 			return enemyPet.getHappiness();
@@ -53,7 +57,9 @@ public class Model {
 	
 	public void handleClick(String symbol){
 		for(Bouble b: boubles){
-			b.handleClick(symbol);
+			if(b.handleClick(symbol)){
+				increaseOwnPetHappiness();
+			}
 		}
 	}
 	
