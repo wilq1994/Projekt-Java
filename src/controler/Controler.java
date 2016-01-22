@@ -31,20 +31,32 @@ public class Controler
 		model = m;
 		model.quitGame();
 	}
-
-	static public void handleClickedButton(String clickedButton)
+	
+	public static void connectionReady()
 	{
-		if (clickedButton.toUpperCase() == "NOWA GRA" || clickedButton.toUpperCase() == "NEW GAME")
+		if(signal == "serwer" || signal =="client")
 		{
 			startGame();
 		}
-		else if (clickedButton.toUpperCase() == "USTAWIENIA" || clickedButton.toUpperCase() == "SETTINGS")
-		{
+	}
 
+	static public void handleClickedButton(String clickedButton)
+	{
+		if(status == "menu")
+		{
+			handleMenuButton(clickedButton);
 		}
-		else if (clickedButton.toUpperCase() == "WYJSCIE" || clickedButton.toUpperCase() == "EXIT")
+		else if(status == "multi")
 		{
-
+			handleMultiButton(clickedButton);
+		}
+		else if(status == "server")
+		{
+			handleServerButton(clickedButton);
+		}
+		else if(status == "client")
+		{
+			handleClientButton(clickedButton);
 		}
 	}
 
@@ -52,7 +64,58 @@ public class Controler
 	{
 		model.handleClick(clickedButton);
 	}
+	
+	static private void handleMenuButton(String clickedButton)
+	{
+		if (clickedButton.toUpperCase() == "NOWA GRA")
+		{
+			startGame();
+		}
+		else if (clickedButton.toUpperCase() == "MULTI")
+		{
+			status = "multi";
+			view.changeView(status);
+		}
+		else if (clickedButton.toUpperCase() == "USTAWIENIA")
+		{
 
+		}
+		else if (clickedButton.toUpperCase() == "WYJSCIE")
+		{
+
+		}
+	}
+	
+	static private void handleMultiButton(String clickedButton)
+	{
+		if (clickedButton.toUpperCase() == "SERWER")
+		{
+			status = "serwer";
+			view.changeView(status);
+		}
+		else if (clickedButton.toUpperCase() == "CLIENT")
+		{
+			status = "client";
+			view.changeView(status);
+		}
+	}
+
+	static private void handleServerButton(String clickedButton)
+	{
+		if (clickedButton.substring(0, 2).toLowerCase() == "s ")
+		{
+			startServer(clickedButton.substring(3));
+		}
+	}
+	
+	static private void handleClientButton(String clickedButton)
+	{
+		if (clickedButton.substring(0, 2).toLowerCase() == "c ")
+		{
+			startClient(clickedButton.substring(3));
+		}
+	}
+	
 	static private void startGame()
 	{
 		status = "game";
@@ -61,6 +124,24 @@ public class Controler
 		view.changeView(status);
 		updater = new Updater(model, view);
 		Thread th = new Thread(updater);
+		th.start();
+	}
+	
+	static private void startServer(String data)
+	{
+		int port = Integer.parseInt(data);
+		communication = new Server(port, model);
+		Thread th = new Thread(communication);
+		th.start();
+	}
+	
+	static private void startClient(String data)
+	{
+		String args[] = data.split("\\s+");
+		String ip = args[0];
+		int port = Integer.parseInt(args[1]);
+		communication = new Client(ip, port, model);
+		Thread th = new Thread(communication);
 		th.start();
 	}
 
@@ -78,5 +159,4 @@ public class Controler
 		cThread.run();
 
 	}
-
 }

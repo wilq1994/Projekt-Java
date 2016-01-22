@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import controler.Controler;
 import model.Model;
 
 public class Client extends Communication
@@ -31,6 +32,7 @@ public class Client extends Communication
 			socket = new Socket(InetAddress.getByName(ip), port);
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			Controler.connectionReady();
 			while (active)
 			{
 				getHappiness();
@@ -70,6 +72,7 @@ public class Client extends Communication
 		while ((in = reader.readLine()) == null)
 		{
 		}
+		System.out.println("client got: " + in);
 		String tag = in.substring(0, 3);
 		String data = in.substring(3);
 		if (!tag.equals("got"))

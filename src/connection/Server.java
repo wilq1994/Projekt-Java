@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 
+import controler.Controler;
 import model.Model;
 
 public class Server extends Communication
@@ -30,6 +31,7 @@ public class Server extends Communication
 			socket = serverSocket.accept();
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			Controler.connectionReady();
 			while (active)
 			{
 				while ((in = reader.readLine()) == null)
