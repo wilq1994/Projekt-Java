@@ -103,7 +103,7 @@ public class View {
 		btnPlay.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				displayFrame("game");
+				changeView("game");
 			}
 		});
 	}
@@ -112,10 +112,6 @@ public class View {
 		gameViewPane = new JLayeredPane();
 		gameViewPane.setBounds(0, 0, 540, 960);
 		gameView.add(gameViewPane);
-		
-		JLabel bg = new JLabel();
-		bg.setIcon(new ImageIcon("res/game.png"));
-		bg.setBounds(0,0,540,960);
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.setBounds(410, 20, 100, 50);
@@ -143,25 +139,31 @@ public class View {
 		enemyLabel.setText("Enemy happiness: 50");
 		enemyLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		enemyLabel.setBounds(350, 880, 160, 50);
+		
 
-		//gameViewPane.add(bg, new Integer(1));
-		gameViewPane.add(btnBack, new Integer(2));
-		gameViewPane.add(progressBar, new Integer(2));
-		gameViewPane.add(happinessLabel, new Integer(2));
-		gameViewPane.add(enemyLabel, new Integer(2));
+		GameBgAnimation bg = new GameBgAnimation();
+		bg.setBounds(0, 0, 540, 960);
+		
+		PetAnimation pet = new PetAnimation();
+		pet.setBounds(140, 250, 270, 529);
+		
+		gameViewPane.add(bg, new Integer(1));
+		gameViewPane.add(pet, new Integer(2));
+
+		gameViewPane.add(btnBack, new Integer(3));
+		gameViewPane.add(progressBar, new Integer(3));
+		gameViewPane.add(happinessLabel, new Integer(3));
+		gameViewPane.add(enemyLabel, new Integer(3));
 		
 		btnBack.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				displayFrame("main");
+				changeView("main");
 			}
 		});
 	}
 	
 	private void renderFrame(){
-		JPanel anim = new Animacja();
-		anim.setBounds(0, 0, 540, 960);
-		gameViewPane.add(anim, new Integer(1));
 	}
 	
 	private void renderHUD(){
@@ -172,7 +174,11 @@ public class View {
 		
 	}
 	
-	public void displayFrame(String view){
+	/**
+	 * Metoda zmieniaj¹ca widok aplikacji
+	 * @param view nazwa widoku
+	 */
+	public void changeView(String view){
 		screen.getContentPane().removeAll();
 		switch (view) {
 		case "game":
@@ -191,48 +197,4 @@ public class View {
 		enemyLabel.setText("Enemy happiness: " + happiness);
 	}
 	
-}
-
-
-class Animacja extends JPanel implements ActionListener{
-	private BufferedImage bg;
-	private BufferedImage pet;
-	Timer t;
-	private int x = 0;
-	private int x2 = 0;
-	private int max;
-	private int max2;
-	Animacja(){
-		try {
-			bg = ImageIO.read(getClass().getResourceAsStream("/gameBg.png"));
-			pet = ImageIO.read(getClass().getResourceAsStream("/petAnim.png"));
-			System.out.println(pet.getWidth());
-			max = bg.getWidth() - 540;
-			max2 = pet.getWidth() - 270;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		repaint();
-		t = new Timer(40, this);
-		t.start();
-	}
-	public void paint(Graphics g){
-		super.paint(g);
-		g.clearRect(0, 0, 540, 960);
-		g.drawImage(bg, 0, 0, 540, 960, x, 0, x+540, 960, null);
-		g.drawImage(pet, 140, 260, 140+270, 260+529, x2, 0, x2+270, 529, null);
-	}
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		if(x>=max){
-			x=0;
-		}
-		x+=540;
-		if(x2>=max2){
-			x2=0;
-		}
-		x2+=270;
-		repaint();
-		revalidate();
-	}
 }
