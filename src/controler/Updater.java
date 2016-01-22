@@ -10,7 +10,6 @@ public class Updater implements Runnable
 	private View view;
 	private long startTime;
 	private int updateTime, currentTime;
-	
 
 	Updater(Model model, View view)
 	{
@@ -30,7 +29,7 @@ public class Updater implements Runnable
 			{
 				updateTime = currentTime;
 				model.handleRoutines(currentTime);
-				view.refresh(model.getEnemyPetHappiness());
+				view.refresh(null, model.getOwnPetHappiness(), model.getEnemyPetHappiness());
 			}
 		}
 	}
