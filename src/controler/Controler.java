@@ -39,7 +39,7 @@ public class Controler
 			startGame();
 		}
 	}
-
+ 
 	static public void handleClickedButton(String clickedButton)
 	{
 		if(status == "menu")

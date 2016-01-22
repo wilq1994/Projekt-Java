@@ -22,7 +22,7 @@ public class Server extends Communication
 		this.model = model;
 		this.port = port;
 	}
-
+ 
 	public void run()
 	{
 		try

@@ -24,7 +24,7 @@ public class Client extends Communication
 		this.ip = ip;
 		this.port = port;
 	}
-
+ 
 	public void run()
 	{
 		try
