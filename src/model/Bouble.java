@@ -11,7 +11,7 @@ public class Bouble {
 	final Integer RIGHTEDGE = 500;
 	final Integer TOPEDGE = 20;
 	final Integer BOTTOMEDGE = 920;
-	final Integer BOUBLEDIA = 50;
+	final Integer BOUBLEDIA = 100;
 	Integer reactionTime;
 	Integer vectorX;
 	Integer vectorY;
