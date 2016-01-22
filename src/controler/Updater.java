@@ -27,7 +27,6 @@ public class Updater implements Runnable
 			currentTime = (int) (System.currentTimeMillis() - startTime);
 			if (currentTime > updateTime + 100)
 			{
-				System.out.println("currentTime");
 				updateTime = currentTime;
 				model.handleRoutines(currentTime);
 				view.refresh(model.getBoubleList(), model.getOwnPetHappiness(), model.getEnemyPetHappiness());
