@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -180,10 +180,18 @@ public class View {
 		btnClient.setBackground(Color.YELLOW);
 		btnClient.setForeground(Color.BLUE);
 		btnClient.setFocusPainted(false);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.setBounds(200, 710, 150, 50);
+		btnBack.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+		btnBack.setBackground(Color.YELLOW);
+		btnBack.setForeground(Color.BLUE);
+		btnBack.setFocusPainted(false);
 
 		multiplayerViewPane.add(bg,new Integer(1));
 		multiplayerViewPane.add(btnServer,new Integer(2));
 		multiplayerViewPane.add(btnClient,new Integer(2));
+		multiplayerViewPane.add(btnBack,new Integer(2));
 		
 		btnServer.addMouseListener(new MouseAdapter(){
 			@Override
@@ -198,6 +206,13 @@ public class View {
 				Controler.handleClickedButton("CLIENT");
 			}
 		});
+		
+		btnBack.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controler.handleClickedButton("MAIN");
+			}
+		});
 	}
 	private void initServerView(){
 		/* --- MULTIPLAYER VIEW --- */
@@ -209,20 +224,41 @@ public class View {
 		bg.setIcon(new ImageIcon("res/main.png"));
 		bg.setBounds(0,0,540,960);
 		
+		JTextField port = new JTextField();
+		port.setBounds(150, 500, 250, 50);
+		port.setText("PORT");
+		
 		JButton btnOk = new JButton("OK");
-		btnOk.setBounds(200, 500, 150, 50);
+		btnOk.setBounds(200, 570, 150, 50);
 		btnOk.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
 		btnOk.setBackground(Color.YELLOW);
 		btnOk.setForeground(Color.BLUE);
 		btnOk.setFocusPainted(false);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.setBounds(200, 710, 150, 50);
+		btnBack.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+		btnBack.setBackground(Color.YELLOW);
+		btnBack.setForeground(Color.BLUE);
+		btnBack.setFocusPainted(false);
 
 		serverViewPane.add(bg,new Integer(1));
+		serverViewPane.add(port,new Integer(2));
 		serverViewPane.add(btnOk,new Integer(2));
+		serverViewPane.add(btnBack,new Integer(2));
 		
 		btnOk.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Controler.handleClickedButton("s, 9107");
+				System.out.println("s, "+port.getText());
+				Controler.handleClickedButton("s, "+port.getText());
+			}
+		});
+		
+		btnBack.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controler.handleClickedButton("MULTI");
 			}
 		});
 	}
@@ -235,21 +271,46 @@ public class View {
 		JLabel bg = new JLabel();
 		bg.setIcon(new ImageIcon("res/main.png"));
 		bg.setBounds(0,0,540,960);
+
+		JTextField ip = new JTextField();
+		ip.setBounds(150, 500, 250, 50);
+		ip.setText("IP");
+		
+		JTextField port = new JTextField();
+		port.setBounds(150, 570, 250, 50);
+		port.setText("PORT");
 		
 		JButton btnOk = new JButton("OK");
-		btnOk.setBounds(200, 500, 150, 50);
+		btnOk.setBounds(200, 640, 150, 50);
 		btnOk.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
 		btnOk.setBackground(Color.YELLOW);
 		btnOk.setForeground(Color.BLUE);
 		btnOk.setFocusPainted(false);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.setBounds(200, 710, 150, 50);
+		btnBack.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+		btnBack.setBackground(Color.YELLOW);
+		btnBack.setForeground(Color.BLUE);
+		btnBack.setFocusPainted(false);
 
 		clientViewPane.add(bg,new Integer(1));
+		clientViewPane.add(ip,new Integer(2));
+		clientViewPane.add(port,new Integer(2));
 		clientViewPane.add(btnOk,new Integer(2));
+		clientViewPane.add(btnBack,new Integer(2));
 		
 		btnOk.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Controler.handleClickedButton("c, 127.0.0.1, 9107");
+				Controler.handleClickedButton("c, "+ip.getText()+", "+port.getText());
+			}
+		});
+		
+		btnBack.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controler.handleClickedButton("MULTI");
 			}
 		});
 	}
