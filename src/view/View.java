@@ -33,6 +33,12 @@ public class View {
 
 	private JPanel mainView;
 	
+	private JPanel multiplayerView;
+	
+	private JPanel serverView;
+	
+	private JPanel clientView;
+	
 	private JPanel gameView;
 	
 	private JLayeredPane gameViewPane;
@@ -69,9 +75,15 @@ public class View {
 				screen.setLocation(screenSize.width/2-540/2, screenSize.height/2-960/2);
 
 				mainView = new JPanel(null);
+				multiplayerView = new JPanel(null);
+				clientView = new JPanel(null);
+				serverView = new JPanel(null);
 				gameView = new JPanel(null);
 				
 				initMainView();
+				initMultiplayerView();
+				initServerView();
+				initClientView();
 				initGameView();
 				screen.add(mainView);
 
@@ -104,15 +116,22 @@ public class View {
 		btnPlay.setForeground(Color.BLUE);
 		btnPlay.setFocusPainted(false);
 		
+		JButton btnMultiplayer = new JButton("Multiplayer");
+		btnMultiplayer.setBounds(200, 570, 150, 50);
+		btnMultiplayer.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+		btnMultiplayer.setBackground(Color.YELLOW);
+		btnMultiplayer.setForeground(Color.BLUE);
+		btnMultiplayer.setFocusPainted(false);
+		
 		JButton btnHelp = new JButton("Help");
-		btnHelp.setBounds(200, 570, 150, 50);
+		btnHelp.setBounds(200, 640, 150, 50);
 		btnHelp.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
 		btnHelp.setBackground(Color.YELLOW);
 		btnHelp.setForeground(Color.BLUE);
 		btnHelp.setFocusPainted(false);
 		
 		JButton btnCredits = new JButton("Credits");
-		btnCredits.setBounds(200, 640, 150, 50);
+		btnCredits.setBounds(200, 710, 150, 50);
 		btnCredits.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
 		btnCredits.setBackground(Color.YELLOW);
 		btnCredits.setForeground(Color.BLUE);
@@ -120,14 +139,117 @@ public class View {
 
 		mainViewPane.add(bg,new Integer(1));
 		mainViewPane.add(btnPlay,new Integer(2));
+		mainViewPane.add(btnMultiplayer,new Integer(2));
 		mainViewPane.add(btnHelp,new Integer(2));
 		mainViewPane.add(btnCredits,new Integer(2));
 			
 		btnPlay.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//changeView("game");
 				Controler.handleClickedButton("NOWA GRA");
+			}
+		});
+		
+		btnMultiplayer.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controler.handleClickedButton("MULTI");
+			}
+		});
+	}
+	private void initMultiplayerView(){
+		/* --- MULTIPLAYER VIEW --- */
+		JLayeredPane multiplayerViewPane = new JLayeredPane();
+		multiplayerViewPane.setBounds(0, 0, 540, 960);
+		multiplayerView.add(multiplayerViewPane);
+		
+		JLabel bg = new JLabel();
+		bg.setIcon(new ImageIcon("res/main.png"));
+		bg.setBounds(0,0,540,960);
+		
+		JButton btnServer = new JButton("Server");
+		btnServer.setBounds(200, 500, 150, 50);
+		btnServer.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+		btnServer.setBackground(Color.YELLOW);
+		btnServer.setForeground(Color.BLUE);
+		btnServer.setFocusPainted(false);
+		
+		JButton btnClient = new JButton("Client");
+		btnClient.setBounds(200, 570, 150, 50);
+		btnClient.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+		btnClient.setBackground(Color.YELLOW);
+		btnClient.setForeground(Color.BLUE);
+		btnClient.setFocusPainted(false);
+
+		multiplayerViewPane.add(bg,new Integer(1));
+		multiplayerViewPane.add(btnServer,new Integer(2));
+		multiplayerViewPane.add(btnClient,new Integer(2));
+		
+		btnServer.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controler.handleClickedButton("SERVER");
+			}
+		});
+		
+		btnClient.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controler.handleClickedButton("CLIENT");
+			}
+		});
+	}
+	private void initServerView(){
+		/* --- MULTIPLAYER VIEW --- */
+		JLayeredPane serverViewPane = new JLayeredPane();
+		serverViewPane.setBounds(0, 0, 540, 960);
+		serverView.add(serverViewPane);
+		
+		JLabel bg = new JLabel();
+		bg.setIcon(new ImageIcon("res/main.png"));
+		bg.setBounds(0,0,540,960);
+		
+		JButton btnOk = new JButton("OK");
+		btnOk.setBounds(200, 500, 150, 50);
+		btnOk.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+		btnOk.setBackground(Color.YELLOW);
+		btnOk.setForeground(Color.BLUE);
+		btnOk.setFocusPainted(false);
+
+		serverViewPane.add(bg,new Integer(1));
+		serverViewPane.add(btnOk,new Integer(2));
+		
+		btnOk.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controler.handleClickedButton("s, 9107");
+			}
+		});
+	}
+	private void initClientView(){
+		/* --- MULTIPLAYER VIEW --- */
+		JLayeredPane clientViewPane = new JLayeredPane();
+		clientViewPane.setBounds(0, 0, 540, 960);
+		clientView.add(clientViewPane);
+		
+		JLabel bg = new JLabel();
+		bg.setIcon(new ImageIcon("res/main.png"));
+		bg.setBounds(0,0,540,960);
+		
+		JButton btnOk = new JButton("OK");
+		btnOk.setBounds(200, 500, 150, 50);
+		btnOk.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+		btnOk.setBackground(Color.YELLOW);
+		btnOk.setForeground(Color.BLUE);
+		btnOk.setFocusPainted(false);
+
+		clientViewPane.add(bg,new Integer(1));
+		clientViewPane.add(btnOk,new Integer(2));
+		
+		btnOk.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controler.handleClickedButton("c, 127.0.0.1, 9107");
 			}
 		});
 	}
@@ -195,6 +317,15 @@ public class View {
 		case "game":
 			screen.add(gameView);
 			renderGame();
+			break;
+		case "multi":
+			screen.add(multiplayerView);
+			break;
+		case "server":
+			screen.add(serverView);
+			break;
+		case "client":
+			screen.add(clientView);
 			break;
 		default:
 			audioPly.stop(audioStr);

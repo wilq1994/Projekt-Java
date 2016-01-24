@@ -88,9 +88,9 @@ public class Controler
 	
 	static private void handleMultiButton(String clickedButton)
 	{
-		if (clickedButton.toUpperCase() == "SERWER")
+		if (clickedButton.toUpperCase() == "SERVER")
 		{
-			status = "serwer";
+			status = "server";
 			view.changeView(status);
 		}
 		else if (clickedButton.toUpperCase() == "CLIENT")
