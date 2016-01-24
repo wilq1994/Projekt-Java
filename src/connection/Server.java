@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
+import java.util.concurrent.locks.ReentrantLock;
 
 import controler.Controler;
 import model.Model;
@@ -34,9 +35,7 @@ public class Server extends Communication
 			Controler.connectionReady();
 			while (active)
 			{
-				while ((in = reader.readLine()) == null)
-				{
-				}
+				getData();
 				String tag = in.substring(0, 3);
 				String data = in.substring(3);
 				if (tag.equals("get"))
@@ -60,17 +59,30 @@ public class Server extends Communication
 
 	private void sendHappiness() throws IOException
 	{
-		// writer.write("set" + model.gethappiness());
+		try
+		{
+			writer.write("set" + model.getOwnPetHappiness());
+		}
+		catch (NullPointerException e)
+		{
+			writer.write("set5000");
+		}
 		writer.newLine();
 		writer.flush();
 	}
 
 	private void getHappiness(Integer data) throws IOException
 	{
-		// model.sethappiness(data);
+		model.setEnemyPetHappiness(data);
 		writer.write("got" + data);
 		writer.newLine();
 		writer.flush();
+	}
+	private void getData() throws IOException
+	{
+		while ((in = reader.readLine()) == null)
+		{
+		}
 	}
 
 }

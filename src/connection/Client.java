@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.locks.ReentrantLock;
 
 import controler.Controler;
 import model.Model;
@@ -17,7 +18,7 @@ public class Client extends Communication
 	private String in, ip;
 	private Integer port;
 
-	public Client(String ip, Integer port, Model m)
+	public Client(String ip, Integer port, Model model)
 	{
 		active = true;
 		this.model = model;
@@ -40,7 +41,6 @@ public class Client extends Communication
 			}
 		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -50,9 +50,7 @@ public class Client extends Communication
 		writer.write("gethappiness");
 		writer.newLine();
 		writer.flush();
-		while ((in = reader.readLine()) == null)
-		{
-		}
+		getData();
 		String tag = in.substring(0, 3);
 		String data = in.substring(3);
 		if (tag.equals("set"))
@@ -66,21 +64,30 @@ public class Client extends Communication
 
 	private void getHappiness() throws IOException
 	{
-		writer.write("set" + model.getOwnPetHappiness());
+		try
+		{
+			writer.write("set" + model.getOwnPetHappiness());
+		}
+		catch (NullPointerException e)
+		{
+			writer.write("set5000");
+		}
 		writer.newLine();
 		writer.flush();
-		while ((in = reader.readLine()) == null)
-		{
-		}
-		System.out.println("client got: " + in);
+		getData();
 		String tag = in.substring(0, 3);
 		String data = in.substring(3);
 		if (!tag.equals("got"))
 		{
 			System.out.println("error: unexpected package - " + in);
 		}
-		writer.newLine();
-		writer.flush();
+	}
+	
+	private void getData() throws IOException
+	{
+		while ((in = reader.readLine()) == null)
+		{
+		}
 	}
 
 }

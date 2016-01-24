@@ -15,7 +15,6 @@ public class Controler
 	static private KeyListener listener;
 	static private Model model;
 	static private View view;
-	static private String signal;
 	static private Updater updater;
 	static private String status;
 
@@ -34,9 +33,10 @@ public class Controler
 	
 	public static void connectionReady()
 	{
-		if(signal == "serwer" || signal =="client")
+		
+		if(status.equals("server") || status.equals("client"))
 		{
-			startGame();
+			startGame(true);
 		}
 	}
  
@@ -69,7 +69,7 @@ public class Controler
 	{
 		if (clickedButton.toUpperCase() == "NOWA GRA")
 		{
-			startGame();
+			startGame(false);
 		}
 		else if (clickedButton.toUpperCase() == "MULTI")
 		{
@@ -102,7 +102,7 @@ public class Controler
 
 	static private void handleServerButton(String clickedButton)
 	{
-		if (clickedButton.substring(0, 2).toLowerCase() == "s ")
+		if (clickedButton.substring(0, 3).toLowerCase().equals("s, "))
 		{
 			startServer(clickedButton.substring(3));
 		}
@@ -110,17 +110,17 @@ public class Controler
 	
 	static private void handleClientButton(String clickedButton)
 	{
-		if (clickedButton.substring(0, 2).toLowerCase() == "c ")
+		if (clickedButton.substring(0, 3).toLowerCase().equals("c, "))
 		{
 			startClient(clickedButton.substring(3));
 		}
 	}
 	
-	static private void startGame()
+	static private void startGame(boolean multi)
 	{
 		status = "game";
 		HashMap<Integer, String> track = model.generateTrack();
-		model.newGame(1, "fajny tytul", track, false);
+		model.newGame(1, "fajny tytul", track, multi);
 		view.changeView(status);
 		updater = new Updater(model, view);
 		Thread th = new Thread(updater);
@@ -137,7 +137,7 @@ public class Controler
 	
 	static private void startClient(String data)
 	{
-		String args[] = data.split("\\s+");
+		String args[] = data.split(",\\s+");
 		String ip = args[0];
 		int port = Integer.parseInt(args[1]);
 		communication = new Client(ip, port, model);
