@@ -449,6 +449,7 @@ public class View {
 			screen.add(clientView);
 			break;
 		case "finish":
+			audioPly.stop(audioStr);
 			screen.add(finishView);
 			break;
 		default:
@@ -470,9 +471,9 @@ public class View {
 	
 	public void setScore(int score, int scoreEnemy){
 		this.scoreField.setText("Twój wynik: "+score);
-		if(scoreEnemy != -1){
+		try{
 			this.scoreEnemyField.setText("Wynik przeciwnika: "+scoreEnemy);
-		}
+		} catch (NullPointerException e){}
 	}
 	
 }
