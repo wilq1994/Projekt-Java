@@ -118,26 +118,26 @@ public class Model {
 	
 	public HashMap <Integer, String> generateTrack(){
 		HashMap<Integer, String> track = new HashMap <Integer, String>();
-		track.put(3000, "w");
-		track.put(6000, "s");
-		track.put(9000, "a");
-		track.put(12000, "d");
-		track.put(15000, "w");
-		track.put(18000, "s");
-		track.put(21000, "a");
+		track.put(2000, "w");
+		track.put(4000, "s");
+		track.put(6000, "a");
+		track.put(8000, "d");
+		track.put(10000, "w");
+		track.put(12000, "s");
+		track.put(14000, "a");
+		track.put(16000, "d");
+		track.put(18000, "w");
+		track.put(20000, "s");
+		track.put(22000, "a");
 		track.put(24000, "d");
-		track.put(27000, "w");
-		track.put(30000, "s");
-		track.put(33000, "a");
-		track.put(36000, "d");
-		track.put(39000, "w");
-		track.put(42000, "s");
-		track.put(45000, "a");
-		track.put(48000, "d");
-		track.put(51000, "w");
-		track.put(54000, "s");
-		track.put(57000, "a");
-		track.put(60000, "d");
+		track.put(26000, "w");
+		track.put(28000, "s");
+		track.put(30000, "a");
+		track.put(32000, "d");
+		track.put(34000, "w");
+		track.put(36000, "s");
+		track.put(38000, "a");
+		track.put(40000, "d");
 		return track;
 	}
 

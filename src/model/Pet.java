@@ -4,11 +4,11 @@ public class Pet {
 	Integer happiness;
 	
 	public Pet(){
-		setHappiness(5000);
+		setHappiness(500);
 	}
 	
 	void increaseHappiness(){
-		this.happiness+=1000;
+		this.happiness+=100;
 	}
 	
 	void decreaseHappiness(){
