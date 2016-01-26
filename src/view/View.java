@@ -95,7 +95,7 @@ public class View {
 				initClientView();
 				initGameView();
 				initFinishView();
-				screen.add(finishView);
+				screen.add(mainView);
 
 				
 				audioPly = AudioPlayer.player;
