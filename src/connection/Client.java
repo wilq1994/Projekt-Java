@@ -50,6 +50,11 @@ public class Client extends Communication
 			e.printStackTrace();
 		}
 	}
+	
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
 
 	private void sendHappiness() throws IOException
 	{

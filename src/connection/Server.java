@@ -51,6 +51,7 @@ public class Server extends Communication
 					System.out.println("error: unexpected package - " + in);
 				}
 			}
+			serverSocket.close();
 		}
 		catch (SocketException e)
 		{
@@ -58,9 +59,12 @@ public class Server extends Communication
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public void setActive(boolean active)
+	{
+		this.active = active;
 	}
 
 	private void sendHappiness() throws IOException
@@ -87,8 +91,7 @@ public class Server extends Communication
 	private void getData() throws IOException
 	{
 		while ((in = reader.readLine()) == null)
-		{
-		}
+		{}
 	}
 
 }
