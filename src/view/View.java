@@ -417,8 +417,9 @@ public class View {
 	}
 	
 	public void refresh(ArrayList <Bouble> boubles, Integer petHappiness, Integer enemyHappiness){
+		int percent = (int) Math.round((petHappiness/1000.0)*100);
 		boublesAnim.refreshBoubles(boubles);
-		progressBar.setValue(petHappiness);
+		progressBar.setValue(percent);
 		happinessLabel.setText("Happiness: "+petHappiness);
 		enemyLabel.setText("Enemy happiness: " + enemyHappiness);
 	}
