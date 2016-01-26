@@ -40,8 +40,10 @@ public class View {
 	private JPanel serverView;
 	
 	private JPanel clientView;
-	
+
 	private JPanel gameView;
+	
+	private JPanel finishView;
 	
 	private JLayeredPane gameViewPane;
 
@@ -60,6 +62,10 @@ public class View {
 	private AudioStream audioStr;
 	
 	private JProgressBar progressBar;
+	
+	private JLabel scoreField;
+	
+	private JLabel scoreEnemyField;
 	
 	public View(){
 		SwingUtilities.invokeLater(new Runnable(){
@@ -81,13 +87,15 @@ public class View {
 				clientView = new JPanel(null);
 				serverView = new JPanel(null);
 				gameView = new JPanel(null);
+				finishView = new JPanel(null);
 				
 				initMainView();
 				initMultiplayerView();
 				initServerView();
 				initClientView();
 				initGameView();
-				screen.add(mainView);
+				initFinishView();
+				screen.add(finishView);
 
 				
 				audioPly = AudioPlayer.player;
@@ -361,6 +369,39 @@ public class View {
 		gameViewPane.add(happinessLabel, new Integer(4));
 		gameViewPane.add(enemyLabel, new Integer(4));
 	}
+	private void initFinishView(){
+		/* --- RESULT VIEW --- */
+		JLayeredPane finishViewPane = new JLayeredPane();
+		finishViewPane.setBounds(0, 0, 540, 960);
+		finishView.add(finishViewPane);
+
+		scoreField = new JLabel();
+		scoreField.setBounds(100, 100, 200, 50);
+		scoreField.setText("Twój wynik: ");
+		
+		scoreEnemyField = new JLabel();
+		scoreEnemyField.setBounds(100, 200, 200, 50);
+		scoreEnemyField.setText("Wynik przeciwnika: ");
+		
+		JButton btnStart = new JButton("Start");
+		btnStart.setBounds(200, 640, 150, 50);
+		btnStart.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+		btnStart.setBackground(Color.YELLOW);
+		btnStart.setForeground(Color.BLUE);
+		btnStart.setFocusPainted(false);
+
+		finishViewPane.add(scoreField);
+		finishViewPane.add(scoreEnemyField);
+		finishViewPane.add(btnStart);
+
+		btnStart.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controler.handleClickedButton("MAIN");
+			}
+		});
+		
+	}
 	
 	/**
 	 * Renderuje grê
@@ -407,6 +448,9 @@ public class View {
 		case "client":
 			screen.add(clientView);
 			break;
+		case "finish":
+			screen.add(finishView);
+			break;
 		default:
 			audioPly.stop(audioStr);
 			screen.add(mainView);
@@ -422,6 +466,13 @@ public class View {
 		progressBar.setValue(percent);
 		happinessLabel.setText("Happiness: "+petHappiness);
 		enemyLabel.setText("Enemy happiness: " + enemyHappiness);
+	}
+	
+	public void setScore(int score, int scoreEnemy){
+		this.scoreField.setText("Twój wynik: "+score);
+		if(scoreEnemy != -1){
+			this.scoreEnemyField.setText("Wynik przeciwnika: "+scoreEnemy);
+		}
 	}
 	
 }
