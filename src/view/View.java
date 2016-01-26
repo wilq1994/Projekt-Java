@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileInputStream;
@@ -95,9 +97,11 @@ public class View {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				
 			}
 			
 		});	
+		
 	}
 	private void initMainView(){
 		/* --- MAIN VIEW --- */
@@ -378,6 +382,22 @@ public class View {
 		case "game":
 			screen.add(gameView);
 			renderGame();
+			gameView.addKeyListener(new KeyListener() {
+				
+				@Override
+				public void keyTyped(KeyEvent e) {}
+				
+				@Override
+				public void keyReleased(KeyEvent e) {
+					System.out.println(e.getKeyChar());
+					Controler.handleClickedBouble(Character.toString(e.getKeyChar()));
+				}
+				
+				@Override
+				public void keyPressed(KeyEvent e) { }
+			});
+			gameView.setFocusable(true);
+			gameView.requestFocusInWindow();
 			break;
 		case "multi":
 			screen.add(multiplayerView);
