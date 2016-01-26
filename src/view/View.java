@@ -389,7 +389,6 @@ public class View {
 				
 				@Override
 				public void keyReleased(KeyEvent e) {
-					System.out.println(e.getKeyChar());
 					Controler.handleClickedBouble(Character.toString(e.getKeyChar()));
 				}
 				

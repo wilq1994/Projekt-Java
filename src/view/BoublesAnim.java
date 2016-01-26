@@ -47,8 +47,17 @@ public class BoublesAnim extends JPanel {
 		if(boubles != null){
 			for(int i=0; i<this.boubles.size(); i++){
 				Bouble b = boubles.get(i);
-				g2d.drawString(b.getSymbol(), b.getLocationX()+40, b.getLocationY()+fm.getHeight());
-				g2d.drawImage(bouble, b.getLocationX(), b.getLocationY(), this);
+				if(b.getState()=="WAIT"){
+					g2d.drawImage(bouble, b.getLocationX(), b.getLocationY(), b.getLocationX()+130, b.getLocationY()+130, 0, 0, 130, 130, null);
+				}else if(b.getState()=="CLICK"){
+					g2d.drawImage(bouble, b.getLocationX(), b.getLocationY(), b.getLocationX()+130, b.getLocationY()+130, 130, 0, 260, 130, null);
+				}else if(b.getState()=="FAILURE"){
+					g2d.drawImage(bouble, b.getLocationX(), b.getLocationY(), b.getLocationX()+130, b.getLocationY()+130, 260, 0, 390, 130, null);
+				}else if(b.getState()=="SUCCESS"){
+					g2d.drawImage(bouble, b.getLocationX(), b.getLocationY(), b.getLocationX()+130, b.getLocationY()+130, 390, 0, 520, 130, null);
+				}
+				g2d.drawString(b.getSymbol(), b.getLocationX()+50, b.getLocationY()+fm.getHeight()+20);
+				
 			}
 		}
 		g2d.dispose();
