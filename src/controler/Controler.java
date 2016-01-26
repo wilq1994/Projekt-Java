@@ -175,7 +175,7 @@ public class Controler
 	{
 		if (status.equals("game"))
 		{
-			status = "finish";
+			status = "menu";
 			view.changeView(status);
 			//view.setScore(model.getOwnPetHappiness(), model.getEnemyPetHappiness());
 			model.quitGame();
