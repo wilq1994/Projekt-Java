@@ -31,7 +31,12 @@ public class Updater implements Runnable
 				model.handleRoutines(currentTime);
 				view.refresh(model.getBoubleList(), model.getOwnPetHappiness(), model.getEnemyPetHappiness());
 			}
+			if(model.getOwnPetHappiness()==0 || currentTime == 40000)
+			{
+				keepGoing=false;
+			}
 		}
+		Controler.gameFinished();
 	}
 
 	int getCurrentTime()

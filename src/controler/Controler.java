@@ -37,24 +37,35 @@ public class Controler
 		if(status.equals("server") || status.equals("client"))
 		{
 			startGame(true);
+			view.changeView(status);
 		}
 	}
  
 	static public void handleClickedButton(String clickedButton)
 	{
-		if(status == "menu")
+		if (clickedButton.toUpperCase().equals("MAIN"))
+		{
+			status = "menu";
+			view.changeView(status);
+		}
+		else if (clickedButton.toUpperCase().equals("MULTI"))
+		{
+			status = "multi";
+			view.changeView(status);
+		}
+		else if(status.equals("menu"))
 		{
 			handleMenuButton(clickedButton);
 		}
-		else if(status == "multi")
+		else if(status.equals("multi"))
 		{
 			handleMultiButton(clickedButton);
 		}
-		else if(status == "server")
+		else if(status.equals("server"))
 		{
 			handleServerButton(clickedButton);
 		}
-		else if(status == "client")
+		else if(status.equals("client"))
 		{
 			handleClientButton(clickedButton);
 		}
@@ -67,20 +78,20 @@ public class Controler
 	
 	static private void handleMenuButton(String clickedButton)
 	{
-		if (clickedButton.toUpperCase() == "NOWA GRA")
+		if (clickedButton.toUpperCase().equals("NOWA GRA"))
 		{
 			startGame(false);
 		}
-		else if (clickedButton.toUpperCase() == "MULTI")
+		else if (clickedButton.toUpperCase().equals("MULTI"))
 		{
 			status = "multi";
 			view.changeView(status);
 		}
-		else if (clickedButton.toUpperCase() == "USTAWIENIA")
+		else if (clickedButton.toUpperCase().equals("USTAWIENIA"))
 		{
 
 		}
-		else if (clickedButton.toUpperCase() == "WYJSCIE")
+		else if (clickedButton.toUpperCase().equals("WYJSCIE"))
 		{
 
 		}
@@ -88,12 +99,12 @@ public class Controler
 	
 	static private void handleMultiButton(String clickedButton)
 	{
-		if (clickedButton.toUpperCase() == "SERVER")
+		if (clickedButton.toUpperCase().equals("SERVER"))
 		{
 			status = "server";
 			view.changeView(status);
 		}
-		else if (clickedButton.toUpperCase() == "CLIENT")
+		else if (clickedButton.toUpperCase().equals("CLIENT"))
 		{
 			status = "client";
 			view.changeView(status);
@@ -158,5 +169,16 @@ public class Controler
 		sThread.run();
 		cThread.run();
 
+	}
+
+	public static void gameFinished()
+	{
+		if (status.equals("game"))
+		{
+			status = "finish";
+			view.changeView(status);
+			//view.setScore(model.getOwnPetHappiness(), model.getEnemyPetHappiness());
+			model.quitGame();
+		}
 	}
 }

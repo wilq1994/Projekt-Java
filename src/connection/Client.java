@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.concurrent.locks.ReentrantLock;
 
 import controler.Controler;
@@ -39,7 +40,12 @@ public class Client extends Communication
 				getHappiness();
 				sendHappiness();
 			}
-		} catch (IOException e)
+		}
+		catch (SocketException e)
+		{
+			model.setEnemyPetHappiness(null);
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}

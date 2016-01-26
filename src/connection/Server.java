@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
+import java.net.SocketException;
 import java.util.concurrent.locks.ReentrantLock;
 
 import controler.Controler;
@@ -50,7 +51,12 @@ public class Server extends Communication
 					System.out.println("error: unexpected package - " + in);
 				}
 			}
-		} catch (IOException e)
+		}
+		catch (SocketException e)
+		{
+			model.setEnemyPetHappiness(null);
+		}
+		catch (IOException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
