@@ -2,20 +2,17 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -69,6 +66,8 @@ public class View {
 	private JLabel scoreEnemyField;
 	
 	private InputStream music;
+	
+	private JLayeredPane finishViewPane;
 	
 	public View(){
 		SwingUtilities.invokeLater(new Runnable(){
@@ -412,33 +411,42 @@ public class View {
 	}
 	private void initFinishView(){
 		/* --- RESULT VIEW --- */
-		JLayeredPane finishViewPane = new JLayeredPane();
+		finishViewPane = new JLayeredPane();
 		finishViewPane.setBounds(0, 0, 540, 960);
 		finishView.add(finishViewPane);
 
+		JLabel bg = new JLabel();
+		bg.setIcon(new ImageIcon("res/finishbg.png"));
+		bg.setBounds(0,0,540,960);
+
 		scoreField = new JLabel();
-		scoreField.setBounds(100, 100, 200, 50);
+		scoreField.setBounds(120, 440, 200, 50);
 		scoreField.setText("Twój wynik: ");
 		
 		scoreEnemyField = new JLabel();
-		scoreEnemyField.setBounds(100, 200, 200, 50);
+		scoreEnemyField.setBounds(120, 480, 200, 50);
 		scoreEnemyField.setText("Wynik przeciwnika: ");
-		
-		JButton btnStart = new JButton("Start");
-		btnStart.setBounds(200, 640, 150, 50);
-		btnStart.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnStart.setBackground(Color.YELLOW);
-		btnStart.setForeground(Color.BLUE);
-		btnStart.setFocusPainted(false);
 
-		finishViewPane.add(scoreField);
-		finishViewPane.add(scoreEnemyField);
-		finishViewPane.add(btnStart);
+		JLabel btnBack = new JLabel(new ImageIcon("res/backButton.png"));
+		btnBack.setBounds(155, 560, 228, 71);
 
-		btnStart.addMouseListener(new MouseAdapter(){
+		finishViewPane.add(bg, new Integer(1));
+		finishViewPane.add(scoreField,new Integer(2));
+		finishViewPane.add(scoreEnemyField,new Integer(2));
+		finishViewPane.add(btnBack,new Integer(2));
+
+		btnBack.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Controler.handleClickedButton("MAIN");
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnBack.setIcon(new ImageIcon("res/backButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnBack.setIcon(new ImageIcon("res/backButton.png"));
 			}
 		});
 		
@@ -517,15 +525,28 @@ public class View {
 	}
 	
 	public void setScore(Integer score, Integer scoreEnemy){
-		this.scoreField.setText("Twój wynik: "+score);
+		this.scoreField.setText("Your score: "+score);
 		if (scoreEnemy != null)
 		{
-			this.scoreEnemyField.setText("Wynik przeciwnika: "+scoreEnemy);
+			this.scoreEnemyField.setText("Enemy's score: "+scoreEnemy);
 		}
 		else
 		{
 			this.scoreEnemyField.setText("");
 		}
+
+		JLabel head = new JLabel();
+		head.setBounds(183,255,184,191);
+		if(score < 250){
+			head.setIcon(new ImageIcon("res/head1.png"));
+		}else if(score >= 250 && score < 500){
+			head.setIcon(new ImageIcon("res/head2.png"));
+		}else if(score >= 500 && score < 750){
+			head.setIcon(new ImageIcon("res/head3.png"));
+		}else {
+			head.setIcon(new ImageIcon("res/head4.png"));
+		}
+		finishViewPane.add(head, new Integer(2));
 	}
 	
 }
