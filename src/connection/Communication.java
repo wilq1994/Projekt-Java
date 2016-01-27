@@ -21,4 +21,9 @@ public abstract class Communication implements Runnable
 
 	}
 
+	public void setActive(boolean active)
+	{
+		
+	}
+
 }

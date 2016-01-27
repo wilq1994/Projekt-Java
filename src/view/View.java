@@ -473,11 +473,16 @@ public class View {
 		enemyLabel.setText("Enemy happiness: " + enemyHappiness);
 	}
 	
-	public void setScore(int score, int scoreEnemy){
+	public void setScore(Integer score, Integer scoreEnemy){
 		this.scoreField.setText("Twój wynik: "+score);
-		try{
+		if (scoreEnemy != null)
+		{
 			this.scoreEnemyField.setText("Wynik przeciwnika: "+scoreEnemy);
-		} catch (NullPointerException e){}
+		}
+		else
+		{
+			this.scoreEnemyField.setText("");
+		}
 	}
 	
 }

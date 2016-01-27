@@ -2,6 +2,7 @@ package controler;
 
 import java.awt.event.KeyListener;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import connection.Client;
 import connection.Communication;
@@ -11,7 +12,7 @@ import view.View;
 
 public class Controler
 {
-	static private Communication communication;
+	static private Communication communication = null;
 	static private KeyListener listener;
 	static private Model model;
 	static private View view;
@@ -173,11 +174,24 @@ public class Controler
 
 	public static void gameFinished()
 	{
+		try
+		{
+			TimeUnit.MILLISECONDS.sleep(500);
+		} catch (InterruptedException e1)
+		{
+		}
+		if(communication !=null)
+			communication.setActive(false);
 		if (status.equals("game"))
 		{
-			status = "menu";
+			status = "finish";
 			view.changeView(status);
-			//view.setScore(model.getOwnPetHappiness(), model.getEnemyPetHappiness());
+			try{
+				view.setScore(model.getOwnPetHappiness(), model.getEnemyPetHappiness());
+			}catch (NullPointerException e)
+			{
+				view.setScore(model.getOwnPetHappiness(), null);
+			}
 			model.quitGame();
 		}
 	}
