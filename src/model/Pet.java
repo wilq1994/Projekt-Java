@@ -8,7 +8,7 @@ public class Pet {
 	}
 	
 	void increaseHappiness(){
-		this.happiness+=100;
+		this.happiness+=93;
 	}
 	
 	void decreaseHappiness(){

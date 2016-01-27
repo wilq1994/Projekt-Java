@@ -543,7 +543,7 @@ public class View {
 			head.setIcon(new ImageIcon("res/head2.png"));
 		}else if(score >= 500 && score < 750){
 			head.setIcon(new ImageIcon("res/head3.png"));
-		}else {
+		}else if(score >= 750) {
 			head.setIcon(new ImageIcon("res/head4.png"));
 		}
 		finishViewPane.add(head, new Integer(2));
