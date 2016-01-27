@@ -24,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import com.sun.glass.ui.Cursor;
+
 import controler.Controler;
 import model.Bouble;
 import sun.audio.AudioPlayer;
@@ -120,39 +122,41 @@ public class View {
 		JLabel bg = new JLabel();
 		bg.setIcon(new ImageIcon("res/main.png"));
 		bg.setBounds(0,0,540,960);
+
+		JLabel btnPlay = new JLabel(new ImageIcon("res/playButton.png"));
+		btnPlay.setBounds(160, 640, 228, 71);
+
+		JLabel btnMultiplayer = new JLabel(new ImageIcon("res/multiplayerButton.png"));
+		btnMultiplayer.setBounds(160, 721, 228, 71);
+
+		JLabel btnCredits = new JLabel(new ImageIcon("res/creditsButton.png"));
+		btnCredits.setBounds(160, 802, 228, 71);
+		
 	
-		JButton btnPlay = new JButton("Play");
-		btnPlay.setBounds(200, 500, 150, 50);
-		btnPlay.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnPlay.setBackground(Color.YELLOW);
-		btnPlay.setForeground(Color.BLUE);
-		btnPlay.setFocusPainted(false);
-		
-		JButton btnMultiplayer = new JButton("Multiplayer");
-		btnMultiplayer.setBounds(200, 570, 150, 50);
-		btnMultiplayer.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnMultiplayer.setBackground(Color.YELLOW);
-		btnMultiplayer.setForeground(Color.BLUE);
-		btnMultiplayer.setFocusPainted(false);
-		
-		JButton btnHelp = new JButton("Help");
-		btnHelp.setBounds(200, 640, 150, 50);
-		btnHelp.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnHelp.setBackground(Color.YELLOW);
-		btnHelp.setForeground(Color.BLUE);
-		btnHelp.setFocusPainted(false);
-		
-		JButton btnCredits = new JButton("Credits");
-		btnCredits.setBounds(200, 710, 150, 50);
-		btnCredits.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnCredits.setBackground(Color.YELLOW);
-		btnCredits.setForeground(Color.BLUE);
-		btnCredits.setFocusPainted(false);
+//		JButton btnPlay = new JButton("Play");
+//		btnPlay.setBounds(200, 500, 150, 50);
+//		btnPlay.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+//		btnPlay.setBackground(Color.YELLOW);
+//		btnPlay.setForeground(Color.BLUE);
+//		btnPlay.setFocusPainted(false);
+//		
+//		JButton btnMultiplayer = new JButton("Multiplayer");
+//		btnMultiplayer.setBounds(200, 570, 150, 50);
+//		btnMultiplayer.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+//		btnMultiplayer.setBackground(Color.YELLOW);
+//		btnMultiplayer.setForeground(Color.BLUE);
+//		btnMultiplayer.setFocusPainted(false);
+//		
+//		JButton btnCredits = new JButton("Credits");
+//		btnCredits.setBounds(200, 710, 150, 50);
+//		btnCredits.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+//		btnCredits.setBackground(Color.YELLOW);
+//		btnCredits.setForeground(Color.BLUE);
+//		btnCredits.setFocusPainted(false);
 
 		mainViewPane.add(bg,new Integer(1));
 		mainViewPane.add(btnPlay,new Integer(2));
 		mainViewPane.add(btnMultiplayer,new Integer(2));
-		mainViewPane.add(btnHelp,new Integer(2));
 		mainViewPane.add(btnCredits,new Integer(2));
 			
 		btnPlay.addMouseListener(new MouseAdapter(){
