@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -23,8 +24,6 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-
-import com.sun.glass.ui.Cursor;
 
 import controler.Controler;
 import model.Bouble;
@@ -69,6 +68,8 @@ public class View {
 	
 	private JLabel scoreEnemyField;
 	
+	private InputStream music;
+	
 	public View(){
 		SwingUtilities.invokeLater(new Runnable(){
 
@@ -102,8 +103,8 @@ public class View {
 				
 				audioPly = AudioPlayer.player;
 				try {
-					InputStream test = new FileInputStream("res/music.wav");
-					audioStr = new AudioStream(test);
+					music = new FileInputStream("res/music.wav");
+					audioStr = new AudioStream(music);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -127,32 +128,10 @@ public class View {
 		btnPlay.setBounds(160, 640, 228, 71);
 
 		JLabel btnMultiplayer = new JLabel(new ImageIcon("res/multiplayerButton.png"));
-		btnMultiplayer.setBounds(160, 721, 228, 71);
+		btnMultiplayer.setBounds(160, 731, 228, 71);
 
 		JLabel btnCredits = new JLabel(new ImageIcon("res/creditsButton.png"));
-		btnCredits.setBounds(160, 802, 228, 71);
-		
-	
-//		JButton btnPlay = new JButton("Play");
-//		btnPlay.setBounds(200, 500, 150, 50);
-//		btnPlay.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-//		btnPlay.setBackground(Color.YELLOW);
-//		btnPlay.setForeground(Color.BLUE);
-//		btnPlay.setFocusPainted(false);
-//		
-//		JButton btnMultiplayer = new JButton("Multiplayer");
-//		btnMultiplayer.setBounds(200, 570, 150, 50);
-//		btnMultiplayer.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-//		btnMultiplayer.setBackground(Color.YELLOW);
-//		btnMultiplayer.setForeground(Color.BLUE);
-//		btnMultiplayer.setFocusPainted(false);
-//		
-//		JButton btnCredits = new JButton("Credits");
-//		btnCredits.setBounds(200, 710, 150, 50);
-//		btnCredits.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-//		btnCredits.setBackground(Color.YELLOW);
-//		btnCredits.setForeground(Color.BLUE);
-//		btnCredits.setFocusPainted(false);
+		btnCredits.setBounds(160, 822, 228, 71);
 
 		mainViewPane.add(bg,new Integer(1));
 		mainViewPane.add(btnPlay,new Integer(2));
@@ -164,12 +143,43 @@ public class View {
 			public void mouseClicked(MouseEvent e) {
 				Controler.handleClickedButton("NOWA GRA");
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnPlay.setIcon(new ImageIcon("res/playButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnPlay.setIcon(new ImageIcon("res/playButton.png"));
+			}
 		});
 		
 		btnMultiplayer.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Controler.handleClickedButton("MULTI");
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnMultiplayer.setIcon(new ImageIcon("res/multiplayerButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnMultiplayer.setIcon(new ImageIcon("res/multiplayerButton.png"));
+			}
+		});
+		
+		btnCredits.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Controler.handleClickedButton("MULTI");
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnCredits.setIcon(new ImageIcon("res/creditsButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnCredits.setIcon(new ImageIcon("res/creditsButton.png"));
 			}
 		});
 	}
@@ -183,26 +193,14 @@ public class View {
 		bg.setIcon(new ImageIcon("res/main.png"));
 		bg.setBounds(0,0,540,960);
 		
-		JButton btnServer = new JButton("Server");
-		btnServer.setBounds(200, 500, 150, 50);
-		btnServer.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnServer.setBackground(Color.YELLOW);
-		btnServer.setForeground(Color.BLUE);
-		btnServer.setFocusPainted(false);
-		
-		JButton btnClient = new JButton("Client");
-		btnClient.setBounds(200, 570, 150, 50);
-		btnClient.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnClient.setBackground(Color.YELLOW);
-		btnClient.setForeground(Color.BLUE);
-		btnClient.setFocusPainted(false);
-		
-		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(200, 710, 150, 50);
-		btnBack.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnBack.setBackground(Color.YELLOW);
-		btnBack.setForeground(Color.BLUE);
-		btnBack.setFocusPainted(false);
+		JLabel btnServer = new JLabel(new ImageIcon("res/serverButton.png"));
+		btnServer.setBounds(160, 640, 228, 71);
+
+		JLabel btnClient = new JLabel(new ImageIcon("res/clientButton.png"));
+		btnClient.setBounds(160, 731, 228, 71);
+
+		JLabel btnBack = new JLabel(new ImageIcon("res/backButton.png"));
+		btnBack.setBounds(160, 822, 228, 71);
 
 		multiplayerViewPane.add(bg,new Integer(1));
 		multiplayerViewPane.add(btnServer,new Integer(2));
@@ -214,6 +212,14 @@ public class View {
 			public void mouseClicked(MouseEvent e) {
 				Controler.handleClickedButton("SERVER");
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnServer.setIcon(new ImageIcon("res/serverButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnServer.setIcon(new ImageIcon("res/serverButton.png"));
+			}
 		});
 		
 		btnClient.addMouseListener(new MouseAdapter(){
@@ -221,12 +227,28 @@ public class View {
 			public void mouseClicked(MouseEvent e) {
 				Controler.handleClickedButton("CLIENT");
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnClient.setIcon(new ImageIcon("res/clientButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnClient.setIcon(new ImageIcon("res/clientButton.png"));
+			}
 		});
 		
 		btnBack.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Controler.handleClickedButton("MAIN");
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnBack.setIcon(new ImageIcon("res/backButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnBack.setIcon(new ImageIcon("res/backButton.png"));
 			}
 		});
 	}
@@ -241,33 +263,32 @@ public class View {
 		bg.setBounds(0,0,540,960);
 		
 		JTextField port = new JTextField();
-		port.setBounds(150, 500, 250, 50);
+		port.setBounds(160, 660, 228, 50);
 		port.setText("PORT");
-		
-		JButton btnOk = new JButton("OK");
-		btnOk.setBounds(200, 570, 150, 50);
-		btnOk.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnOk.setBackground(Color.YELLOW);
-		btnOk.setForeground(Color.BLUE);
-		btnOk.setFocusPainted(false);
-		
-		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(200, 710, 150, 50);
-		btnBack.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnBack.setBackground(Color.YELLOW);
-		btnBack.setForeground(Color.BLUE);
-		btnBack.setFocusPainted(false);
+
+		JLabel btnPlay = new JLabel(new ImageIcon("res/playButton.png"));
+		btnPlay.setBounds(160, 731, 228, 71);
+
+		JLabel btnBack = new JLabel(new ImageIcon("res/backButton.png"));
+		btnBack.setBounds(160, 822, 228, 71);
 
 		serverViewPane.add(bg,new Integer(1));
 		serverViewPane.add(port,new Integer(2));
-		serverViewPane.add(btnOk,new Integer(2));
+		serverViewPane.add(btnPlay,new Integer(2));
 		serverViewPane.add(btnBack,new Integer(2));
 		
-		btnOk.addMouseListener(new MouseAdapter(){
+		btnPlay.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("s, "+port.getText());
 				Controler.handleClickedButton("s, "+port.getText());
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnPlay.setIcon(new ImageIcon("res/playButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnPlay.setIcon(new ImageIcon("res/playButton.png"));
 			}
 		});
 		
@@ -275,6 +296,14 @@ public class View {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Controler.handleClickedButton("MULTI");
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnBack.setIcon(new ImageIcon("res/backButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnBack.setIcon(new ImageIcon("res/backButton.png"));
 			}
 		});
 	}
@@ -289,37 +318,37 @@ public class View {
 		bg.setBounds(0,0,540,960);
 
 		JTextField ip = new JTextField();
-		ip.setBounds(150, 500, 250, 50);
+		ip.setBounds(160, 600, 228, 50);
 		ip.setText("IP");
 		
 		JTextField port = new JTextField();
-		port.setBounds(150, 570, 250, 50);
+		port.setBounds(160, 660, 228, 50);
 		port.setText("PORT");
-		
-		JButton btnOk = new JButton("OK");
-		btnOk.setBounds(200, 640, 150, 50);
-		btnOk.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnOk.setBackground(Color.YELLOW);
-		btnOk.setForeground(Color.BLUE);
-		btnOk.setFocusPainted(false);
-		
-		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(200, 710, 150, 50);
-		btnBack.setFont(new java.awt.Font("Arial", Font.BOLD, 14));
-		btnBack.setBackground(Color.YELLOW);
-		btnBack.setForeground(Color.BLUE);
-		btnBack.setFocusPainted(false);
+
+		JLabel btnPlay = new JLabel(new ImageIcon("res/playButton.png"));
+		btnPlay.setBounds(160, 731, 228, 71);
+
+		JLabel btnBack = new JLabel(new ImageIcon("res/backButton.png"));
+		btnBack.setBounds(160, 822, 228, 71);
 
 		clientViewPane.add(bg,new Integer(1));
 		clientViewPane.add(ip,new Integer(2));
 		clientViewPane.add(port,new Integer(2));
-		clientViewPane.add(btnOk,new Integer(2));
+		clientViewPane.add(btnPlay,new Integer(2));
 		clientViewPane.add(btnBack,new Integer(2));
 		
-		btnOk.addMouseListener(new MouseAdapter(){
+		btnPlay.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Controler.handleClickedButton("c, "+ip.getText()+", "+port.getText());
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnPlay.setIcon(new ImageIcon("res/playButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnPlay.setIcon(new ImageIcon("res/playButton.png"));
 			}
 		});
 		
@@ -327,6 +356,14 @@ public class View {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Controler.handleClickedButton("MULTI");
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnBack.setIcon(new ImageIcon("res/backButton2.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnBack.setIcon(new ImageIcon("res/backButton.png"));
 			}
 		});
 	}
@@ -342,8 +379,8 @@ public class View {
 		progressBar.setBounds(150,30,230,30);
 		progressBar.setValue(50);
 		progressBar.setBorderPainted(false);
-		progressBar.setForeground(new Color(255,0,0));
-		progressBar.setBackground(new Color(155,100,100));
+		progressBar.setBackground(new Color(153,51,100));
+		progressBar.setForeground(new Color(255,204,0));
 				
 		
 		happinessLabel = new JLabel();
@@ -414,7 +451,13 @@ public class View {
 		bgAnim.play();
 		petAnim.play();
 
-		audioPly.start(audioStr);
+		try {
+			music = new FileInputStream("res/music.wav");
+			audioStr = new AudioStream(music);
+			audioPly.start(audioStr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
